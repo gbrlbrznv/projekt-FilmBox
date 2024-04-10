@@ -104,3 +104,72 @@ const filmy = [
 		premiera: '2022-12-24',
 	},
 ]
+
+/* 5 */
+const filmId = window.location.hash.substring(1)
+
+const nalezenyFilm = filmy.find((film) => film.id === filmId)
+
+const nazevFilmuElement = document.querySelector('#nazev-filmu')
+const popisFilmuElement = document.querySelector('.card-text')
+const plakatFilmuElement = document.querySelector('#plakat-filmu')
+
+nazevFilmuElement.textContent = nalezenyFilm.nazev
+popisFilmuElement.textContent = nalezenyFilm.popis
+plakatFilmuElement.setAttribute('src', nalezenyFilm.plakat)
+
+/* 7 */
+const prvky = document.querySelectorAll(".fa-star")
+
+function pocetHvezdicek(cislo) {
+	prvky.forEach((hvezdicka, index) => {
+		if(index < cislo) {
+			hvezdicka.classList.add("fas")
+			hvezdicka.classList.remove("far")
+		} else {
+			hvezdicka.classList.add("far")
+			hvezdicka.classList.remove("fas")
+		}
+	})
+}
+
+prvky.forEach((hezdicka) => {
+	hvezdicka.addEventListener("click", () => {
+		const cisloHvezdicky = hvezdicka.textContent
+		pocetHvezdicek(cisloHvezdicky)
+	})
+})
+
+/* 8 */
+const formular = document.querySelector("#note-form")
+const messageInputt = document.querySelector("#message-input")
+const checkbox = document.querySelector("#terms-checkbox")
+
+formular.addEventListener("submit", (event) => {
+	event.preventDefault()
+
+	if(messageInputElement.value === "") {
+		messaageInput.classList.add("is-invalid")
+		messageInputElement.focus()
+
+		if(!messageInputElement.classList.contains("is-invalid")) {
+			formular.textContent = `To musím vidět.`
+		}
+	} else {
+		messageInputElement.classList.remove("is-invalid")
+	}
+
+	if(!checkbox.checked) {
+		checkbox.classList.add("is-invalid")
+		checkbox.focus()
+
+		if(!checkbox.classList.contains("is-invalid")) {
+			formular.textContent = `To musím vidět.`
+		}
+	} else {
+		checkbox.classList.remove("is-invalid")
+	}
+	if(!messageInputElement.classList.contains("is-invalid") && !checkbox.classList.contains("is-invalid")) {
+		formular.textContent = `To musím vidět.`
+	}
+})
